@@ -1,22 +1,22 @@
 <script setup>
-import {ref} from 'vue'
+import {ref, onMounted} from 'vue'
 import { useProductsStore } from '../stores/products'
 import { useRouter } from 'vue-router'
-
 
 const router = useRouter()
 const productsStore = useProductsStore()
 const products= productsStore.products
 
+onMounted(() => {
+        productsStore.fetchProducts();
+    });
 
 function view(productId){
    productsStore.updateSelectedProduct(productId) // keep track of the course selected
    router.push('/product_details')
 }
 
-
 </script>
-
 
 <template>
    <v-container>
@@ -45,4 +45,5 @@ function view(productId){
            </v-col>
        </v-row>
    </v-container>
+
 </template>
